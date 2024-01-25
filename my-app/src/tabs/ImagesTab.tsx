@@ -7,6 +7,8 @@ import { PredictionsInfo } from "../tabs/PredictionsTab"; // Import the type
 export interface ImagesTabProps {
   predictions: PredictionsInfo[];
   setPredictions: React.Dispatch<React.SetStateAction<PredictionsInfo[]>>;
+  images: ImageInfo[];
+  setImages: React.Dispatch<React.SetStateAction<ImageInfo[]>>;
 }
 
 export interface ImageInfo {
@@ -30,8 +32,9 @@ export const formatDate = (date: Date) => {
 export const ImagesTab: React.FC<ImagesTabProps> = ({
   predictions,
   setPredictions,
+  images,
+  setImages,
 }) => {
-  const [images, setImages] = useState<ImageInfo[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   // Simulate fetching data
