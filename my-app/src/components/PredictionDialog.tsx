@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -28,6 +28,13 @@ export const PredictionDialog: React.FC<PredictionDialogProps> = ({
   onDescriptionChange,
   onSubmit,
 }) => {
+  const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
+
+  useEffect(() => {
+    setIsSubmitEnabled(
+      title.trim().length > 0 && description.trim().length > 0
+    );
+  }, [title, description]);
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>Submit Prediction</DialogTitle>
@@ -36,15 +43,18 @@ export const PredictionDialog: React.FC<PredictionDialogProps> = ({
           Please enter the title and description for your prediction.
         </DialogContentText>
         <TextField
-          autoFocus
-          margin="dense"
           id="title"
           label="Title"
           type="text"
           fullWidth
           variant="standard"
+          required={true}
           value={title}
           onChange={onTitleChange}
+          helperText={title.trim().length === 0 ? "Title is required" : " "}
+          FormHelperTextProps={{
+            style: { color: "red" },
+          }}
         />
         <TextField
           margin="dense"
@@ -53,8 +63,15 @@ export const PredictionDialog: React.FC<PredictionDialogProps> = ({
           type="text"
           fullWidth
           variant="standard"
+          required={true}
           value={description}
           onChange={onDescriptionChange}
+          helperText={
+            description.trim().length === 0 ? "Description is required" : " "
+          }
+          FormHelperTextProps={{
+            style: { color: "red" },
+          }}
         />
       </DialogContent>
       <DialogActions>

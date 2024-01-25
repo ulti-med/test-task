@@ -16,7 +16,6 @@ import {
 import React, { useState } from "react";
 import { StyledTableCell, StyledTableRow } from "../components/ImagesTable";
 import { ViewDialog } from "../components/ViewDialog";
-import { formatDate } from "./ImagesTab";
 
 interface PredictionItem {
   label: string;
@@ -44,9 +43,7 @@ const PredictionsTab: React.FC<{ predictions: PredictionsInfo[] }> = ({
 
   // Simulate fetching data
   React.useEffect(() => {
-    // Simulate a fetch call with a timeout
     setTimeout(() => {
-      // After fetching data, set loading to false
       setLoading(false);
     }, 2000);
   }, []);
@@ -67,7 +64,7 @@ const PredictionsTab: React.FC<{ predictions: PredictionsInfo[] }> = ({
           display="flex"
           justifyContent="center"
           alignItems="center"
-          minHeight="100vh" // This makes the Box fill the entire viewport height
+          minHeight="100vh"
         >
           <CircularProgress />
         </Box>
@@ -120,7 +117,7 @@ const PredictionsTab: React.FC<{ predictions: PredictionsInfo[] }> = ({
                         {prediction.description}
                       </StyledTableCell>
                       <StyledTableCell align="center">
-                        {formatDate(prediction.timestamp)}
+                        {prediction.timestamp.toLocaleString()}
                       </StyledTableCell>
                       <StyledTableCell align="center">
                         <Button

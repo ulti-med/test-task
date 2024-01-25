@@ -14,14 +14,14 @@ export const FileUpload: React.FC<YourInputComponentProps> = ({
   const handleFileChoice = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
-      setSelectedFile(file); // Set the selected file into state
+      setSelectedFile(file);
     }
   };
 
   const uploadFile = () => {
     if (!selectedFile) return;
     handleFileUpload(selectedFile);
-    setSelectedFile(null); // Clear the selected file after upload
+    setSelectedFile(null);
   };
 
   return (

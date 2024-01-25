@@ -2,7 +2,7 @@ import { Box, CircularProgress } from "@mui/material";
 import React, { useState } from "react";
 import { FileUpload } from "../components/FileUpload";
 import ImagesTable from "../components/ImagesTable";
-import { PredictionsInfo } from "../tabs/PredictionsTab"; // Import the type
+import { PredictionsInfo } from "../tabs/PredictionsTab";
 
 export interface ImagesTabProps {
   predictions: PredictionsInfo[];
@@ -18,17 +18,6 @@ export interface ImageInfo {
   timeOfUpload: string;
 }
 
-export const formatDate = (date: Date) => {
-  return new Intl.DateTimeFormat(navigator.language, {
-    year: "numeric",
-    month: "long",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-  }).format(date);
-};
-
 export const ImagesTab: React.FC<ImagesTabProps> = ({
   predictions,
   setPredictions,
@@ -39,9 +28,7 @@ export const ImagesTab: React.FC<ImagesTabProps> = ({
 
   // Simulate fetching data
   React.useEffect(() => {
-    // Simulate a fetch call with a timeout
     setTimeout(() => {
-      // After fetching data, set loading to false
       setLoading(false);
     }, 2000);
   }, []);
@@ -52,7 +39,7 @@ export const ImagesTab: React.FC<ImagesTabProps> = ({
         filename: selectedFile.name,
         size: selectedFile.size,
         src: URL.createObjectURL(selectedFile),
-        timeOfUpload: formatDate(new Date()),
+        timeOfUpload: new Date().toLocaleString(),
       };
       setImages([...images, newImage]);
     }

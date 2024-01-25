@@ -58,14 +58,6 @@ const App = () => {
               element={<PredictionsTab predictions={predictions} />}
             />
           </Routes>
-
-          {/* <Routes>
-            <Route path="/" element={<ImagesTab />} />
-            <Route
-              path="/prediction"
-              element={<PredictionsTab predictions={[]} />}
-            />
-          </Routes> */}
         </Box>
       </Router>
     </ThemeProvider>

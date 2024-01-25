@@ -18,7 +18,7 @@ import {
   tableCellClasses,
 } from "@mui/material";
 import React, { useState } from "react";
-import { ImageInfo, formatDate } from "../tabs/ImagesTab";
+import { ImageInfo } from "../tabs/ImagesTab";
 import { PredictionsInfo } from "../tabs/PredictionsTab";
 import { PredictionDialog } from "./PredictionDialog";
 
@@ -57,6 +57,10 @@ export const ImagesTable: React.FC<ImagesTableProps> = ({
   const [rowsPerPage, setRowsPerPage] = React.useState(3);
   const [openImageDialog, setOpenImageDialog] = useState(false);
   const [previewedImage, setPreviewedImage] = useState<ImageInfo | null>(null);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [currentImage, setCurrentImage] = useState<ImageInfo | null>(null);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleImageClick = (image: ImageInfo) => {
     setPreviewedImage(image);
@@ -77,10 +81,6 @@ export const ImagesTable: React.FC<ImagesTableProps> = ({
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-  const [openDialog, setOpenDialog] = useState(false);
-  const [currentImage, setCurrentImage] = useState<ImageInfo | null>(null);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
 
   const handleCloseDialog = () => {
     setTitle("");
@@ -98,29 +98,8 @@ export const ImagesTable: React.FC<ImagesTableProps> = ({
     setDescription(event.target.value);
   };
 
-  // const handleSubmit = async () => {
-  //   if (currentImage) {
-  //     console.log("Submitting:", currentImage.filename, title, description);
-
-  //     const newPrediction = {
-  //       title: title,
-  //       description: description,
-  //       timestamp: new Date(),
-  //       imageData: {
-  //         items: [],
-  //         imageSrc: currentImage.src,
-  //       },
-  //     };
-
-  //     setPredictions([...predictions, newPrediction]);
-  //   }
-  //   handleCloseDialog();
-  // };
-
   const handleSubmit = async () => {
-    if (currentImage) {
-      console.log("Submitting:", currentImage.filename, title, description);
-
+    if (currentImage && title && description) {
       const newPrediction = {
         title: title,
         description: description,
@@ -132,8 +111,9 @@ export const ImagesTable: React.FC<ImagesTableProps> = ({
       };
 
       setPredictions([...predictions, newPrediction]); // Update predictions
+
+      handleCloseDialog();
     }
-    handleCloseDialog();
   };
 
   const handlePredictClick = (image: ImageInfo) => {
